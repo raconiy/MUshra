@@ -1,0 +1,836 @@
+bufferSize: 2048
+language: cn
+pages:
+- content: 欢迎来到语音增强质量的主观评测。<br>请单击 [下页] 按钮。
+  id: welcome
+  name: 语音增强质量评测
+  type: generic
+- content: 分别播放“干净的”reference 和处理后的音频，然后以 reference 音频作为参照，对处理后的音频的质量进行打分（0 到 100之间）。<br><br><strong>注意：</strong>您可能需要为每个音频样本进行多个指标的打分，比如
+    SIG-MOS、BAK-MOS 和 OVL-MOS。<br>SIG-MOS 表示处理后的音频中<strong>语音信号</strong>的质量，<font
+    color="red">而不关心背景噪声的部分</font>。<br>BAK-MOS 表示处理后的音频中<strong>背景噪声</strong>的抑制程度，<font
+    color="red">而不关心语音信号的部分</font>。<br>OVL-MOS 表示处理后的音频的<strong>整体质量</strong>，即<font
+    color="red">同时考虑语音和背景噪声</font>。<br><br><strong>在主观评测的过程中，直到测试结束之前，请不要关闭或重新加载此页面，否则进度将会丢失。</strong><br><br>请单击
+    [下页] 按钮。
+  id: explanation
+  name: 测试介绍
+  type: generic
+- content: 这是和后面评测中您将听到的音频相似的一个语音样本。请根据它调整耳机的音量。<br><br><strong>在评测过程中，请使用耳机，并在相对安静的房间中进行听音。</strong>
+  defaultVolume: 1.0
+  id: Volume check
+  stimulus: configs/resources/wavs_stereo/clean/p257_235.wav
+  type: volume
+-
+  - random
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_074
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (1/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_074.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_074.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_074.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_074.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_074.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_074.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_074.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_074.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_048
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (2/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_048.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_048.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_048.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_048.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_048.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_048.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_048.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_048.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_072
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (3/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_072.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_072.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_072.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_072.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_072.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_072.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_072.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_072.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_316
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (4/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_316.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_316.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_316.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_316.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_316.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_316.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_316.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_316.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_050
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (5/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_050.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_050.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_050.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_050.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_050.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_050.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_050.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_050.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_414
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (6/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_414.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_414.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_414.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_414.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_414.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_414.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_414.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_414.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_395
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (7/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_395.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_395.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_395.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_395.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_395.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_395.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_395.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_395.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_044
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (8/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_044.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_044.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_044.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_044.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_044.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_044.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_044.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_044.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_062
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (9/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_062.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_062.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_062.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_062.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_062.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_062.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_062.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_062.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_084
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (10/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_084.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_084.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_084.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_084.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_084.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_084.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_084.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_084.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_038
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (11/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_038.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_038.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_038.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_038.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_038.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_038.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_038.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_038.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_275
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (12/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_275.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_275.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_275.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_275.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_275.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_275.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_275.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_275.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_235
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (13/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p257_235.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p257_235.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p257_235.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p257_235.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p257_235.wav
+      demucs: configs/resources/wavs_stereo/demucs/p257_235.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p257_235.wav
+      noisy: configs/resources/wavs_stereo/noisy/p257_235.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_390
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (14/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_390.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_390.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_390.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_390.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_390.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_390.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_390.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_390.wav
+    type: multi_metric_mushra
+  - colors:
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content:
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 SIG-MOS 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声级别</font>进行评估，即其中的背景噪声是否很好地被抑制。<br>强干扰性噪声，相应的得分是
+      0。几乎无噪声，相应的得分是 100。<br><br><strong>注意(1)：</strong>在评估 BAK-MOS 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_076
+    metrics:
+    - OVL-MOS
+    - SIG-MOS
+    - BAK-MOS
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (15/15)
+    randomize: true
+    reference: configs/resources/wavs_stereo/clean/p232_076.wav
+    response:
+    -
+      - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    -
+      - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    -
+      - 几乎无噪声
+      - 轻微噪声
+      - 有噪声但无干扰性
+      - 有一定干扰性
+      - 强干扰噪声
+    showConditionNames: false
+    stimuli:
+      DB-AIAT: configs/resources/wavs_stereo/DB-AIAT/p232_076.wav
+      DCCRN: configs/resources/wavs_stereo/DCCRN/p232_076.wav
+      FRCRN: configs/resources/wavs_stereo/FRCRN/p232_076.wav
+      TripleSE_TNet_5c1: configs/resources/wavs_stereo/TripleSE_TNet_5c1/p232_076.wav
+      demucs: configs/resources/wavs_stereo/demucs/p232_076.wav
+      metricgan-plus: configs/resources/wavs_stereo/metricgan-plus/p232_076.wav
+      noisy: configs/resources/wavs_stereo/noisy/p232_076.wav
+    type: multi_metric_mushra
+- content: 评测结束，请输入您的<strong>名字</strong>，并单击 [提交结果] 按钮。
+  id: finish
+  name: 评测结束
+  popupContent: 您的评测结果已被记录。感谢您的配合！
+  questionnaire:
+  - label: 名字
+    name: name
+    optional: false
+    type: text
+  showResults: true
+  type: finish
+  writeResults: true
+remoteService: service/write.php
+showButtonPreviousPage: true
+showWaveform: true
+stopOnErrors: true
+testId: subjective_evalaution
+testname: Subjective evaluation

@@ -1,0 +1,526 @@
+bufferSize: 2048
+language: cn
+pages:
+- content: 欢迎来到语音增强质量的主观评测。<br>请单击 [下页] 按钮。
+  id: welcome
+  name: 语音增强质量评测
+  type: generic
+- content: 分别播放“干净的”reference 和处理后的音频，然后以 reference 音频作为参照，对处理后的音频的质量进行打分（0 到 100之间）。<br><br><strong>注意：</strong>您可能需要为每个音频样本进行多个指标的打分，比如
+    语音质量、背景噪声质量 和 整体音频质量。<br>语音质量 表示处理后的音频中<strong>语音信号</strong>的质量，<font color="red">而不关心背景噪声的部分</font>。<br>背景噪声质量
+    表示处理后的音频中<strong>背景噪声</strong>的质量，<font color="red">而不关心语音信号的部分</font>。<br>整体音频质量
+    表示处理后的音频的<strong>整体质量</strong>，即<font color="red">同时考虑语音和背景噪声</font>。<br><br><strong>在主观评测的过程中，直到测试结束之前，请不要关闭或重新加载此页面，否则进度将会丢失。</strong><br><br>请单击
+    [下页] 按钮。
+  id: explanation
+  name: 测试介绍
+  type: generic
+- content: 这是和后面评测中您将听到的音频相似的一个语音样本。请根据它调整耳机的音量。<br><br><strong>在评测过程中，请使用耳机，并在相对安静的房间中进行听音。</strong>
+  defaultVolume: 1.0
+  id: Volume check
+  stimulus: configs/resources/samples/clean/p232_001.wav
+  type: volume
+- - random
+  - colors: &id001
+    - '#ED8C01'
+    - '#007ACC'
+    - '#2f9b5c'
+    content: &id002
+    - 分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是
+      0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是
+      0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 语音质量 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>
+    - 分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声质量</font>进行评估，即其中的背景噪声的质量情况。<br>强干扰性噪声，相应的得分是
+      100。几乎无噪声，相应的得分是 0。<br><br><strong>注意(1)：</strong>在评估背景噪声质量 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_040
+    metrics: &id003
+    - 整体音频质量
+    - 语音质量
+    - 背景噪声质量
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (1/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_040/p232_040_Clean.wav
+    response: &id004
+    - - 很好
+      - 好
+      - 较好
+      - 较差
+      - 差
+    - - 无失真
+      - 轻微失真
+      - 较失真
+      - 相当失真
+      - 极度失真
+    - - 强干扰噪声
+      - 有一定干扰性
+      - 有噪声但无干扰性
+      - 轻微噪声
+      - 几乎无噪声
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_040/p232_040_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_040/p232_040_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_040/p232_040_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_040/p232_040_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_040/p232_040_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_040/p232_040_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_040/p232_040_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_068
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (2/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_068/p232_068_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_068/p232_068_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_068/p232_068_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_068/p232_068_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_068/p232_068_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_068/p232_068_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_068/p232_068_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_068/p232_068_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_250
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (3/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_250/p232_250_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_250/p232_250_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_250/p232_250_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_250/p232_250_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_250/p232_250_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_250/p232_250_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_250/p232_250_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_250/p232_250_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_291
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (4/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_291/p232_291_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_291/p232_291_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_291/p232_291_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_291/p232_291_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_291/p232_291_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_291/p232_291_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_291/p232_291_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_291/p232_291_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_312
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (5/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_312/p232_312_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_312/p232_312_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_312/p232_312_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_312/p232_312_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_312/p232_312_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_312/p232_312_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_312/p232_312_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_312/p232_312_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_361
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (6/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_361/p232_361_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_361/p232_361_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_361/p232_361_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_361/p232_361_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_361/p232_361_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_361/p232_361_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_361/p232_361_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_361/p232_361_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_373
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (7/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_373/p232_373_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_373/p232_373_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_373/p232_373_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_373/p232_373_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_373/p232_373_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_373/p232_373_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_373/p232_373_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_373/p232_373_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_382
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (8/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_382/p232_382_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_382/p232_382_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_382/p232_382_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_382/p232_382_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_382/p232_382_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_382/p232_382_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_382/p232_382_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_382/p232_382_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_394
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (9/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_394/p232_394_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_394/p232_394_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_394/p232_394_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_394/p232_394_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_394/p232_394_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_394/p232_394_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_394/p232_394_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_394/p232_394_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p232_409
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (10/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p232_409/p232_409_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p232_409/p232_409_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p232_409/p232_409_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p232_409/p232_409_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p232_409/p232_409_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p232_409/p232_409_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p232_409/p232_409_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p232_409/p232_409_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_008
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (11/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_008/p257_008_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_008/p257_008_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_008/p257_008_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_008/p257_008_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_008/p257_008_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_008/p257_008_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_008/p257_008_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_008/p257_008_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_022
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (12/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_022/p257_022_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_022/p257_022_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_022/p257_022_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_022/p257_022_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_022/p257_022_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_022/p257_022_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_022/p257_022_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_022/p257_022_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_033
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (13/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_033/p257_033_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_033/p257_033_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_033/p257_033_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_033/p257_033_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_033/p257_033_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_033/p257_033_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_033/p257_033_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_033/p257_033_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_038
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (14/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_038/p257_038_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_038/p257_038_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_038/p257_038_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_038/p257_038_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_038/p257_038_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_038/p257_038_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_038/p257_038_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_038/p257_038_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_086
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (15/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_086/p257_086_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_086/p257_086_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_086/p257_086_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_086/p257_086_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_086/p257_086_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_086/p257_086_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_086/p257_086_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_086/p257_086_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_106
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (16/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_106/p257_106_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_106/p257_106_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_106/p257_106_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_106/p257_106_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_106/p257_106_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_106/p257_106_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_106/p257_106_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_106/p257_106_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_118
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (17/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_118/p257_118_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_118/p257_118_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_118/p257_118_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_118/p257_118_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_118/p257_118_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_118/p257_118_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_118/p257_118_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_118/p257_118_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_235
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (18/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_235/p257_235_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_235/p257_235_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_235/p257_235_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_235/p257_235_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_235/p257_235_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_235/p257_235_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_235/p257_235_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_235/p257_235_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_279
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (19/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_279/p257_279_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_279/p257_279_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_279/p257_279_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_279/p257_279_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_279/p257_279_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_279/p257_279_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_279/p257_279_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_279/p257_279_OMLSA.wav
+    type: multi_metric_mushra
+  - colors: *id001
+    content: *id002
+    createAnchor35: false
+    createAnchor70: false
+    enableLooping: true
+    id: clean_p257_287
+    metrics: *id003
+    mustPlayAll: true
+    mustViewAllTabs: true
+    name: 语音增强质量评测 (20/20)
+    randomize: true
+    reference: ./configs/resources/IterSE_samples/p257_287/p257_287_Clean.wav
+    response: *id004
+    showConditionNames: false
+    stimuli:
+      DCCRN: ./configs/resources/IterSE_samples/p257_287/p257_287_DCCRN.wav
+      IDR: ./configs/resources/IterSE_samples/p257_287/p257_287_IDR.wav
+      IterSE: ./configs/resources/IterSE_samples/p257_287/p257_287_IterSE.wav
+      Noise2Noise: ./configs/resources/IterSE_samples/p257_287/p257_287_Noise2Noise.wav
+      Noisy: ./configs/resources/IterSE_samples/p257_287/p257_287_Noisy.wav
+      NyTT: ./configs/resources/IterSE_samples/p257_287/p257_287_NyTT.wav
+      OMLSA: ./configs/resources/IterSE_samples/p257_287/p257_287_OMLSA.wav
+    type: multi_metric_mushra
+- content: 评测结束，请输入您的<strong>名字</strong>，并单击 [提交结果] 按钮。
+  id: finish
+  name: 评测结束
+  popupContent: 您的评测结果已被记录。感谢您的配合！
+  questionnaire:
+  - label: 名字
+    name: name
+    optional: false
+    type: text
+  showResults: true
+  type: finish
+  writeResults: true
+remoteService: service/write.php
+showButtonPreviousPage: true
+showWaveform: true
+stopOnErrors: true
+testId: subjective_evalaution
+testname: Subjective evaluation

@@ -1,0 +1,212 @@
+testname: webMUSHRA Example
+testId: default_example
+bufferSize: 2048
+stopOnErrors: true
+showButtonPreviousPage: true
+remoteService: service/write.php
+
+
+pages:
+    - type: generic
+      id: first_page
+      name: Welcome
+      content: Welcome to webMUSHRA!       
+    - type: multi_metric_mushra
+      id: trial1
+      name: MUSHRA
+      metrics:
+          - MOS
+          - S-MOS
+          - N-MOS
+      colors:
+          - '#ED8C01'
+          - '#007ACC'
+          - '#2f9b5c'
+      content:
+          - Listen to a reference audio and several processed audios.<br>Then evaluate the
+            <font color="red">overall quality</font> of the processed audio, i.e. whether
+            the speech signal is well preserved (undistorted), while the background noise
+            is well suppressed.<br>Highly distorted speech with very intrusive noise is
+            corresponding to 0. Undistorted speech without noticeable noise is corresponding
+            to 100.<br><br><strong>Note:</strong> The reference audio might also contain
+            some noise. And it is preferred if the noise is further suppressed in the processed
+            audios.
+          - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+            evaluate <font color="red">speech quality</font> in the processed audio, i.e.
+            whether the speech signal is well preserved (undistorted).<br>Highly distorted
+            speech is corresponding to 0. Undistorted speech is corresponding to 100.<br><br><strong>Note:</strong>
+            Please <u>do not take account of the background noise</u> when evaluating S-MOS.
+          - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+            evaluate <font color="red">noise level</font> in the processed audio, i.e. whether
+            the background noise is well suppressed.<br>Very intrusive noise is corresponding
+            to 0. Unnoticable noise is corresponding to 100.<br><br><strong>Note:</strong>
+            Please <u>do not take account of the speech quality</u> when evaluating N-MOS.
+      response:
+          -
+            - Excellent
+            - Good
+            - Fair
+            - Poor
+            - Bad
+          -
+            - Not Distorted
+            - Slightly Distorted
+            - Somewhat Distorted
+            - Fairly Distorted
+            - Very Distorted
+          -
+            - Not Noticeable
+            - Slightly Noticeable
+            - Noticeable But Not Intrusive
+            - Somewhat Intrusive
+            - Very Intrusive
+      showWaveform: true
+      enableLooping: true 
+      reference: configs/resources/audio/mono_ref.wav
+      createAnchor35: true
+      createAnchor70: true
+      stimuli:
+          C1: configs/resources/audio/mono_c1.wav
+          C2: configs/resources/audio/mono_c2.wav
+          C3: configs/resources/audio/mono_c3.wav
+    - 
+          - random
+          - type: multi_metric_mushra
+            id: trial_random_1
+            name: MUSHRA - Random 2
+            metrics:
+                - MOS
+                - S-MOS
+                - N-MOS
+            colors:
+                - '#ED8C01'
+                - '#007ACC'
+                - '#2f9b5c'
+            content:
+                - Listen to a reference audio and several processed audios.<br>Then evaluate the
+                  <font color="red">overall quality</font> of the processed audio, i.e. whether
+                  the speech signal is well preserved (undistorted), while the background noise
+                  is well suppressed.<br>Highly distorted speech with very intrusive noise is
+                  corresponding to 0. Undistorted speech without noticeable noise is corresponding
+                  to 100.<br><br><strong>Note:</strong> The reference audio might also contain
+                  some noise. And it is preferred if the noise is further suppressed in the processed
+                  audios.
+                - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+                  evaluate <font color="red">speech quality</font> in the processed audio, i.e.
+                  whether the speech signal is well preserved (undistorted).<br>Highly distorted
+                  speech is corresponding to 0. Undistorted speech is corresponding to 100.<br><br><strong>Note:</strong>
+                  Please <u>do not take account of the background noise</u> when evaluating S-MOS.
+                - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+                  evaluate <font color="red">noise level</font> in the processed audio, i.e. whether
+                  the background noise is well suppressed.<br>Very intrusive noise is corresponding
+                  to 0. Unnoticable noise is corresponding to 100.<br><br><strong>Note:</strong>
+                  Please <u>do not take account of the speech quality</u> when evaluating N-MOS.
+            response:
+                -
+                  - Excellent
+                  - Good
+                  - Fair
+                  - Poor
+                  - Bad
+                -
+                  - Not Distorted
+                  - Slightly Distorted
+                  - Somewhat Distorted
+                  - Fairly Distorted
+                  - Very Distorted
+                -
+                  - Not Noticeable
+                  - Slightly Noticeable
+                  - Noticeable But Not Intrusive
+                  - Somewhat Intrusive
+                  - Very Intrusive
+            enableLooping: true 
+            reference: configs/resources/audio/mono_ref.wav
+            createAnchor35: false
+            createAnchor70: false
+            stimuli:
+                C1: configs/resources/audio/mono_c1.wav
+                C2: configs/resources/audio/mono_c2.wav
+                C3: configs/resources/audio/mono_c3.wav          
+          - type: multi_metric_mushra
+            id: trial_random_2
+            name: MUSHRA - Random 1
+            metrics:
+                - MOS
+                - S-MOS
+                - N-MOS
+            colors:
+                - '#ED8C01'
+                - '#007ACC'
+                - '#2f9b5c'
+            content:
+                - Listen to a reference audio and several processed audios.<br>Then evaluate the
+                  <font color="red">overall quality</font> of the processed audio, i.e. whether
+                  the speech signal is well preserved (undistorted), while the background noise
+                  is well suppressed.<br>Highly distorted speech with very intrusive noise is
+                  corresponding to 0. Undistorted speech without noticeable noise is corresponding
+                  to 100.<br><br><strong>Note:</strong> The reference audio might also contain
+                  some noise. And it is preferred if the noise is further suppressed in the processed
+                  audios.
+                - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+                  evaluate <font color="red">speech quality</font> in the processed audio, i.e.
+                  whether the speech signal is well preserved (undistorted).<br>Highly distorted
+                  speech is corresponding to 0. Undistorted speech is corresponding to 100.<br><br><strong>Note:</strong>
+                  Please <u>do not take account of the background noise</u> when evaluating S-MOS.
+                - Listen to a reference audio and several processed audios. <br>Then <strong>ONLY</strong>
+                  evaluate <font color="red">noise level</font> in the processed audio, i.e. whether
+                  the background noise is well suppressed.<br>Very intrusive noise is corresponding
+                  to 0. Unnoticable noise is corresponding to 100.<br><br><strong>Note:</strong>
+                  Please <u>do not take account of the speech quality</u> when evaluating N-MOS.
+            response:
+                -
+                  - Excellent
+                  - Good
+                  - Fair
+                  - Poor
+                  - Bad
+                -
+                  - Not Distorted
+                  - Slightly Distorted
+                  - Somewhat Distorted
+                  - Fairly Distorted
+                  - Very Distorted
+                -
+                  - Not Noticeable
+                  - Slightly Noticeable
+                  - Noticeable But Not Intrusive
+                  - Somewhat Intrusive
+                  - Very Intrusive
+            enableLooping: true 
+            reference: configs/resources/audio/mono_ref.wav
+            createAnchor35: false
+            createAnchor70: false
+            stimuli:
+                C1: configs/resources/audio/mono_c1.wav
+                C2: configs/resources/audio/mono_c2.wav
+                C3: configs/resources/audio/mono_c3.wav          
+    - type: finish
+      name: Thank you
+      content: Thank you for attending!
+      showResults: true
+      writeResults: true
+      questionnaire:
+          - type: text
+            label: eMail
+            name: email
+          - type: number
+            label: Age
+            name: age
+            min: 0
+            max: 100
+            default: 30
+          - type: likert
+            name: gender
+            label: Gender
+            response:
+             - value: female
+               label: Female
+             - value: male
+               label: Male
+             - value: other
+               label: Other
