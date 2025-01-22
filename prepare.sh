@@ -13,14 +13,14 @@
 
 # Generate config
 ./bin/generate_enh_config.py \
-    --sample_audio_path configs/resources/wavs_stereo/clean/p257_235.wav \
+    --sample_audio_path configs/resources/wavs_stereo/Clean/p232_040.wav \
     --seed 777 \
     --language cn \
     --metrics OVL-MOS,SIG-MOS,BAK-MOS \
     --random True \
-    --ref_root_wav_dir configs/resources/wavs_stereo/clean \
-    --test_root_wav_dir configs/resources/wavs_stereo/{noisy,demucs,metricgan-plus,DCCRN,FRCRN,DB-AIAT,TripleSE_TNet_5c1} \
-    --outpath ./configs/enh_quality_MOS_sample.yaml
+    --ref_root_wav_dir configs/resources/wavs_stereo/Clean \
+    --test_root_wav_dir configs/resources/wavs_stereo/{Noisy,DCCRN,IDR,IterSE,Noise2Noise,NyTT,OMLSA} \
+    --outpath ./configs/IterSE_enh_quality_MOS_sample.yaml
 
 echo "Run the following command to launch WebMUSHRA:"
 echo -e "   php -S 0.0.0.0:60000\n"

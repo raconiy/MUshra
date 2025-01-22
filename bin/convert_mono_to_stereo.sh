@@ -12,6 +12,7 @@ fi
 
 set -euo pipefail
 
+# normalization
 find "${rootdir}" -name "*.wav" | while read -r wavfile; do
     echo "${wavfile}"
     outwavfile=$(echo "${wavfile}" | sed -e "s;${rootdir};${normdir};g")
@@ -20,6 +21,7 @@ find "${rootdir}" -name "*.wav" | while read -r wavfile; do
     sox --norm=-1 "${wavfile}" "${outwavfile}"
 done
 
+# stereo
 find "${normdir}" -name "*.wav" | while read -r wavfile; do
     echo "${wavfile}"
     outwavfile=$(echo "${wavfile}" | sed -e "s;${normdir};${outdir};g")

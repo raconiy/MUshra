@@ -1,3 +1,10 @@
+# For fellows in speechLab
+**1. 对齐语音长度**  
+**2. 生成立体声音频**  
+**3. 生成config**  
+1. 修改、使用`./bin/length_align.py` 2.3.修改、使用`./prepare.sh`
+
+
 # webMUSHRA
 [![GitHub release](https://img.shields.io/github/release/audiolabs/webMUSHRA.svg)](https://github.com/audiolabs/webMUSHRA/releases/latest)
 [![Github All Releases](https://img.shields.io/github/downloads/audiolabs/webMUSHRA/total.svg)](https://github.com/audiolabs/webMUSHRA/releases/latest)
