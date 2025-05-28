@@ -1,5 +1,5 @@
 # For fellows in speechLab
-webMushra是一个[开源](https://github.com/audiolabs/webMUSHRA?tab=readme-ov-file)的主流语言评估工具，搭建网站方法如下。
+webMushra是一个[开源](https://github.com/audiolabs/webMUSHRA?tab=readme-ov-file)的主流语音评估工具，搭建网站方法如下。
 ## 1. 针对具体评估任务，对语音文件预处理，和生成config文件
 **step1. 对齐语音长度**  
 **step2. 生成立体声音频**  
