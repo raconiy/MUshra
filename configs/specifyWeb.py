@@ -22,7 +22,7 @@ def generate_yaml_config(audio_dir, output_yaml_path='/home/wangxiangbo0126/webM
     if len(cond_dirs) != 10:
         raise ValueError(f"预期找到10个cond目录，但实际找到{len(cond_dirs)}个")
     
-    # 分析第一个cond目录，获取样本列表（假设所有cond目录结构相同）
+    # 获取第一个cond目录中的样本文件列表（假设所有cond目录有相同的样本）
     sample_files = sorted([f.name for f in cond_dirs[0].iterdir() if f.is_file() and f.suffix.lower() in ['.wav', '.mp3']])
     
     # 生成YAML配置
@@ -42,7 +42,7 @@ def generate_yaml_config(audio_dir, output_yaml_path='/home/wangxiangbo0126/webM
     
     # 添加说明页
     config['pages'].append({
-        'content': '''分别播放“干净的”reference 和处理后的音频，然后以 reference 音频作为参照，对处理后的音频的质量进行打分（0 到 100之间）。<br><br><strong>注意：</strong>您可能需要为每个音频样本进行多个指标的打分，比如语音质量、背景噪声质量 和 整体音频质量。<br>语音质量 表示处理后的音频中<strong>语音信号</strong>的质量，<font color="red">而不关心背景噪声的部分</font>。<br>背景噪声质量 表示处理后的音频中<strong>背景噪声</strong>的质量，<font color="red">而不关心语音信号的部分</font>。<br>整体音频质量 表示处理后的音频的<strong>整体质量</strong>，即<font color="red">同时考虑语音和背景噪声</font>。<br><br><strong>在主观评测的过程中，直到测试结束之前，请不要关闭或重新加载此页面，否则进度将会丢失。</strong><br><br>请单击 [下页] 按钮。''',
+        'content': '''分别播放“干净的”reference 和处理后的音频，然后以 reference 音频作为参照，对处理后的音频的质量进行打分（0 到 100之间）。<br><br><strong>注意：</strong>您需要为每个音频样本进行多个指标的打分，包括语音质量、背景噪声质量和整体音频质量。<br><br><strong>在主观评测的过程中，直到测试结束之前，请不要关闭或重新加载此页面，否则进度将会丢失。</strong><br><br>请单击 [下页] 按钮。''',
         'id': 'explanation',
         'name': '测试介绍',
         'type': 'generic'
@@ -57,48 +57,55 @@ def generate_yaml_config(audio_dir, output_yaml_path='/home/wangxiangbo0126/webM
         'type': 'volume'
     })
     
-    # 为每个cond和sample生成评测页
-    for cond_idx, cond_dir in enumerate(cond_dirs, 1):
-        cond_name = cond_dir.name
+    # 为每个样本生成评测页
+    for sample_idx, sample_file in enumerate(sample_files, 1):
+        # 提取样本ID（不包含扩展名）
+        sample_id = os.path.splitext(sample_file)[0]
         
-        for sample_idx, sample_file in enumerate(sample_files, 1):
-            # 提取样本ID（不包含扩展名）
-            sample_id = os.path.splitext(sample_file)[0]
-            
-            # 构建评测页配置
-            eval_page = {
-                'content': [
-                    '分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是 0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>',
-                    '分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是 0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 语音质量 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>',
-                    '分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声质量</font>进行评估，即其中的背景噪声的质量情况。<br>强干扰性噪声，相应的得分是 100。几乎无噪声，相应的得分是 0。<br><br><strong>注意(1)：</strong>在评估背景噪声质量 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。'
-                ],
-                'createAnchor35': False,
-                'createAnchor70': False,
-                'enableLooping': True,
-                'id': f'cond{cond_idx}_sample{sample_idx}',
-                'metrics': [
-                    '整体音频质量',
-                    '语音质量',
-                    '背景噪声质量'
-                ],
-                'mustPlayAll': True,
-                'mustViewAllTabs': True,
-                'name': f'语音增强质量评测 ({cond_idx}/10, {sample_idx}/{len(sample_files)})',
-                'randomize': True,
-                'reference': f'./configs/resources/samples/clean/{sample_file}',
-                'response': [
-                    ['很好', '好', '较好', '较差', '差'],
-                    ['无失真', '轻微失真', '较失真', '相当失真', '极度失真'],
-                    ['强干扰噪声', '有一定干扰性', '有噪声但无干扰性', '轻微噪声', '几乎无噪声']
-                ],
-                'showConditionNames': False,
-                'stimuli': {
-                    cond_name: f'./{cond_name}/{sample_file}'
-                },
-                'type': 'multi_metric_mushra'
-            }
-            
-            config['pages'].append(eval_page)
+        # 构建stimuli字典，包含所有cond的音频路径
+        stimuli_dict = {}
+        for cond_dir in cond_dirs:
+            cond_name = cond_dir.name
+            stimuli_dict[cond_name] = f'./{cond_name}/{sample_file}'
+        
+        # 构建评测页配置
+        eval_page = {
+            'content': [
+                '请对以下指标进行评分：<br>',
+                '1. <strong>整体音频质量</strong>: 同时考虑语音和背景噪声的整体质量',
+                '2. <strong>语音质量</strong>: 仅考虑语音信号的质量（不考虑背景噪声）',
+                '3. <strong>背景噪声质量</strong>: 仅考虑背景噪声的质量（不考虑语音信号）',
+                '<br>评分标准：<br>',
+                '- <strong>整体音频质量</strong>: 0=差（强干扰噪声，高度失真）; 100=优（几乎无噪声，无失真）',
+                '- <strong>语音质量</strong>: 0=高度失真; 100=无失真',
+                '- <strong>背景噪声质量</strong>: 0=几乎无噪声; 100=强干扰噪声',
+                '<br><strong>注意</strong>: 请根据每段音频中噪声的<strong>相对于语音的音量</strong>来评估背景噪声质量'
+            ],
+            'createAnchor35': False,
+            'createAnchor70': False,
+            'enableLooping': True,
+            'id': f'sample_{sample_idx}',
+            'metrics': [
+                '整体音频质量',
+                '语音质量',
+                '背景噪声质量'
+            ],
+            'mustPlayAll': True,
+            'mustViewAllTabs': True,
+            'name': f'样本 {sample_idx} 评测 ({sample_id})',
+            'randomize': True,
+            'reference': f'./configs/resources/samples/clean/{sample_file}',
+            'response': [
+                ['很好', '好', '较好', '较差', '差'],
+                ['无失真', '轻微失真', '较失真', '相当失真', '极度失真'],
+                ['强干扰噪声', '有一定干扰性', '有噪声但无干扰性', '轻微噪声', '几乎无噪声']
+            ],
+            'showConditionNames': True,  # 显示条件名称
+            'stimuli': stimuli_dict,    # 包含所有条件的音频
+            'type': 'multi_metric_mushra'
+        }
+        
+        config['pages'].append(eval_page)
     
     # 添加结束页
     config['pages'].append({
@@ -132,7 +139,7 @@ def generate_yaml_config(audio_dir, output_yaml_path='/home/wangxiangbo0126/webM
         yaml.dump(config, f, allow_unicode=True, sort_keys=False)
     
     print(f"YAML配置文件已生成: {output_yaml_path}")
-    print(f"共生成 {len(config['pages'])} 个页面，包括 {len(sample_files) * len(cond_dirs)} 个评测项")
+    print(f"共生成 {len(config['pages'])} 个页面，包括 {len(sample_files)} 个评测页")
     
     return config
 
