@@ -1,92 +1,144 @@
-# Classify wav files, align their lengths, and modify the configuration in yaml 
-
-from pathlib import Path
-import shutil
-import soundfile as sf
-import numpy as np
+import os
 import yaml
-import re
+from pathlib import Path
 
-def align_audio_length(audio1_path, audio2_path):
-    audio1, sample_rate = sf.read(audio1_path)
-    audio2, _ = sf.read(audio2_path)
-
-    if len(audio1) < len(audio2):
-        audio2 = audio2[:len(audio1)]
-    elif len(audio1) > len(audio2):
-        audio2 = np.pad(audio2, (0, len(audio1) - len(audio2)), mode='constant')
-
-    sf.write(audio2_path, audio2, sample_rate)
-    # print(f"对齐完成并已保存到原文件中: {audio2_path}")
-
-# classify
-wav_folder = Path("/mnt/d/phpstudy_pro/WWW/webMushra/configs/resources/wavs_stereo")
-idx_list = []
-method_list = []
-for file_path in wav_folder.joinpath('Clean').glob('*.wav'):
-    idx_list.append(file_path.stem)
-
-for method_path in wav_folder.glob('*'):
-    if method_path.is_dir() and method_path.name not in idx_list:
-        method_list.append(method_path.name)
+def generate_yaml_config(audio_dir, output_yaml_path='/home/wangxiangbo0126/webMushra/configs/MOS_IterSE.yaml'):
+    """
+    生成语音质量主观评估的YAML配置文件
     
-# for i, wav_idx in enumerate(idx_list):
-#     wav_class = wav_folder.joinpath(wav_idx)
-#     wav_class.mkdir(parents=True, exist_ok=True)
-#     for method in method_list:
-#         shutil.copyfile(wav_folder.joinpath(method, wav_idx).with_suffix('.wav'), wav_class.joinpath(f"{wav_idx}_{method}.wav"))
-#     print(f"第{i+1}条: {wav_class.name}所有样本已根据处理方法分类完毕")
+    参数:
+    - audio_dir: 音频文件根目录，应包含10个cond子目录
+    - output_yaml_path: 生成的YAML文件路径
+    """
+    # 验证输入目录是否存在
+    audio_path = Path(audio_dir)
+    if not audio_path.exists() or not audio_path.is_dir():
+        raise ValueError(f"指定的音频目录不存在: {audio_dir}")
+    
+    # 获取所有cond目录（假设格式为cond1, cond2, ..., cond10）
+    cond_dirs = sorted([d for d in audio_path.iterdir() if d.is_dir() and d.name.startswith('cond')])
+    
+    # 验证是否有10个cond目录
+    if len(cond_dirs) != 10:
+        raise ValueError(f"预期找到10个cond目录，但实际找到{len(cond_dirs)}个")
+    
+    # 分析第一个cond目录，获取样本列表（假设所有cond目录结构相同）
+    sample_files = sorted([f.name for f in cond_dirs[0].iterdir() if f.is_file() and f.suffix.lower() in ['.wav', '.mp3']])
+    
+    # 生成YAML配置
+    config = {
+        'bufferSize': 2048,
+        'language': 'cn',
+        'pages': []
+    }
+    
+    # 添加欢迎页
+    config['pages'].append({
+        'content': '欢迎来到语音增强质量的主观评测。<br>请单击 [下页] 按钮。',
+        'id': 'welcome',
+        'name': '语音增强质量评测',
+        'type': 'generic'
+    })
+    
+    # 添加说明页
+    config['pages'].append({
+        'content': '''分别播放“干净的”reference 和处理后的音频，然后以 reference 音频作为参照，对处理后的音频的质量进行打分（0 到 100之间）。<br><br><strong>注意：</strong>您可能需要为每个音频样本进行多个指标的打分，比如语音质量、背景噪声质量 和 整体音频质量。<br>语音质量 表示处理后的音频中<strong>语音信号</strong>的质量，<font color="red">而不关心背景噪声的部分</font>。<br>背景噪声质量 表示处理后的音频中<strong>背景噪声</strong>的质量，<font color="red">而不关心语音信号的部分</font>。<br>整体音频质量 表示处理后的音频的<strong>整体质量</strong>，即<font color="red">同时考虑语音和背景噪声</font>。<br><br><strong>在主观评测的过程中，直到测试结束之前，请不要关闭或重新加载此页面，否则进度将会丢失。</strong><br><br>请单击 [下页] 按钮。''',
+        'id': 'explanation',
+        'name': '测试介绍',
+        'type': 'generic'
+    })
+    
+    # 添加音量检查页（使用第一个样本的clean版本作为示例）
+    config['pages'].append({
+        'content': '这是和后面评测中您将听到的音频相似的一个语音样本。请根据它调整耳机的音量。<br><br><strong>在评测过程中，请使用耳机，并在相对安静的房间中进行听音。</strong>',
+        'defaultVolume': 1.0,
+        'id': 'volume_check',
+        'stimulus': f'./configs/resources/samples/clean/{sample_files[0]}',
+        'type': 'volume'
+    })
+    
+    # 为每个cond和sample生成评测页
+    for cond_idx, cond_dir in enumerate(cond_dirs, 1):
+        cond_name = cond_dir.name
+        
+        for sample_idx, sample_file in enumerate(sample_files, 1):
+            # 提取样本ID（不包含扩展名）
+            sample_id = os.path.splitext(sample_file)[0]
+            
+            # 构建评测页配置
+            eval_page = {
+                'content': [
+                    '分别播放 reference 和处理后的音频，然后对处理后的音频的<font color="red">整体质量</font>进行评估，即其中的语音信号是否很好地保留（无失真），同时背景噪声也被很好地抑制。<br>伴随着强干扰性噪声，且高度失真的语音，相应的得分是 0。几乎没有噪声，且无失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>reference 音频可能也包含一定噪声，处理后的音频中如果噪声更小则更好。<br><br>',
+                    '分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">语音质量</font>进行评估，即其中的语音信号是否很好地保留（无失真）。<br>高度失真的语音，相应的得分是 0。没有任何失真的语音，相应的得分是 100。<br><br><strong>注意：</strong>在评估 语音质量 分数时，请<u>不要将背景噪声考虑在内</u>。<br><br>',
+                    '分别播放 reference 和处理后的音频，然后<strong>仅</strong>对处理后的音频中的<font color="red">噪声质量</font>进行评估，即其中的背景噪声的质量情况。<br>强干扰性噪声，相应的得分是 100。几乎无噪声，相应的得分是 0。<br><br><strong>注意(1)：</strong>在评估背景噪声质量 分数时，请<u>不要将语音信号的质量考虑在内</u>。<br><strong>注意(2)：</strong>请根据每段音频中噪声的<strong>相对于语音的音量</strong>（而非绝对音量）来对该样本进行打分，因为不同音频的绝对音量很可能是不完全相同的。'
+                ],
+                'createAnchor35': False,
+                'createAnchor70': False,
+                'enableLooping': True,
+                'id': f'cond{cond_idx}_sample{sample_idx}',
+                'metrics': [
+                    '整体音频质量',
+                    '语音质量',
+                    '背景噪声质量'
+                ],
+                'mustPlayAll': True,
+                'mustViewAllTabs': True,
+                'name': f'语音增强质量评测 ({cond_idx}/10, {sample_idx}/{len(sample_files)})',
+                'randomize': True,
+                'reference': f'./configs/resources/samples/clean/{sample_file}',
+                'response': [
+                    ['很好', '好', '较好', '较差', '差'],
+                    ['无失真', '轻微失真', '较失真', '相当失真', '极度失真'],
+                    ['强干扰噪声', '有一定干扰性', '有噪声但无干扰性', '轻微噪声', '几乎无噪声']
+                ],
+                'showConditionNames': False,
+                'stimuli': {
+                    cond_name: f'./{cond_name}/{sample_file}'
+                },
+                'type': 'multi_metric_mushra'
+            }
+            
+            config['pages'].append(eval_page)
+    
+    # 添加结束页
+    config['pages'].append({
+        'content': '评测结束，请输入您的<strong>名字</strong>，并单击 [提交结果] 按钮。',
+        'id': 'finish',
+        'name': '评测结束',
+        'popupContent': '您的评测结果已被记录。感谢您的配合！',
+        'questionnaire': [
+            {
+                'label': '名字',
+                'name': 'name',
+                'optional': False,
+                'type': 'text'
+            }
+        ],
+        'showResults': True,
+        'type': 'finish',
+        'writeResults': True
+    })
+    
+    # 添加其他配置项
+    config['remoteService'] = 'service/write.php'
+    config['showButtonPreviousPage'] = True
+    config['showWaveform'] = True
+    config['stopOnErrors'] = True
+    config['testId'] = 'subjective_evaluation'
+    config['testname'] = 'Subjective evaluation of Speech Enhancement'
+    
+    # 写入YAML文件
+    with open(output_yaml_path, 'w', encoding='utf-8') as f:
+        yaml.dump(config, f, allow_unicode=True, sort_keys=False)
+    
+    print(f"YAML配置文件已生成: {output_yaml_path}")
+    print(f"共生成 {len(config['pages'])} 个页面，包括 {len(sample_files) * len(cond_dirs)} 个评测项")
+    
+    return config
 
-# print("\n======================== 分 类 完 毕 =============================\n\n")
-
-# align
-class_list = []
-for wav_idx in idx_list:
-    class_list.append(wav_folder.joinpath(wav_idx))
-for i, wav_class in enumerate(class_list):
-    for wav in wav_class.glob('*.wav'):
-        align_audio_length(wav_class.joinpath(f"{wav_class.name}_Clean.wav"), wav)
-    print(f"第{i+1}条: {wav_class.name}所有样本已参照Clean样本对齐完毕")
-
-print("\n======================== 长 度 对 齐 完 毕 =============================\n\n")
-
-# # yaml
-# print("生成yaml文件中...")
-# shutil.copyfile('example.yaml', 'MOS_IterSE.yaml')
-# yaml_path = Path('/mnt/d/phpstudy_pro/WWW/webMushra/configs') / 'MOS_IterSE.yaml'
-
-# with open(yaml_path, 'r', encoding='UTF-8') as f:
-#     yaml_data = yaml.safe_load(f)
-
-# single_test = yaml_data['pages'][3][1]
-
-# n_sample = len(idx_list)
-# method_list.remove('Clean')
-# for i, idx in enumerate(idx_list):
-#     single_test_copy = single_test.copy()
-#     # id: clean_p232_003
-#     single_test_copy['id'] = f"clean_{idx}"
-
-#     # name: 语音增强质量评测 (2/10)
-#     single_test_copy['name'] = f"语音增强质量评测 ({i+1}/{n_sample})"
-
-#     # reference: ./configs/resources/samples/p232_001/mono_ref.wav
-#     single_test_copy['reference'] = f"./configs/resources/IterSE_samples/{idx}/{idx}_Clean.wav"
-
-#     # stimuli:
-#     #   d2former: ./configs/resources/samples/p232_003/mono_c1.wav
-#     #   dccrn: ./configs/resources/samples/p232_003/mono_c2.wav
-#     #   dprnn: ./configs/resources/samples/p232_003/mono_c3.wav
-#     #   metric+: ./configs/resources/samples/p232_003/mono_c4.wav
-#     #   mpset: ./configs/resources/samples/p232_003/mono_c5.wav
-#     single_test_copy['stimuli'] = {}
-#     for method in method_list:
-#         single_test_copy['stimuli'][method] = f"./configs/resources/IterSE_samples/{idx}/{idx}_{method}.wav"
-#     if i==0:
-#         yaml_data['pages'][3][1] = single_test_copy
-#     else:
-#         yaml_data['pages'][3].append(single_test_copy)
-
-# with open(yaml_path, "w", encoding="utf-8") as f:
-#     yaml.safe_dump(yaml_data, f, allow_unicode=True, default_flow_style=False)
-#     print("yaml文件已创建完毕")
+if __name__ == "__main__":
+    # 用户需要修改此路径为实际音频目录
+    audio_directory = "/home/wangxiangbo0126/webMushra/grouped_conditions"
+    
+    # 生成配置文件
+    generate_yaml_config(audio_directory)

@@ -228,7 +228,7 @@ var configFile = '';
 if (configArg) {
   configFile = 'configs/' + configArg;
 } else {
-  configFile = 'configs/IterSE_enh_quality_MOS_sample.yaml'; // 'configs/enh_quality_MOS_sample_cn.yaml' or 'configs/MOS_IterSE.yaml'
+  configFile = 'configs/MOS_IterSE.yaml'; // 'configs/enh_quality_MOS_sample_cn.yaml' or 'configs/MOS_IterSE.yaml'
 }
 
 
